@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,52 +11,19 @@
             color: #fff;
             text-align: center;
             height: 100vh;
-            margin: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            overflow: hidden;
-        }
-
-        .hidden-content {
-            display: none;
-            margin-top: 20px;
-            font-size: 24px;
-            color: #33cc33;
-        }
-
-        /* Modal styles */
-        .modal {
-            display: block; 
-            position: fixed;
-            z-index: 1; 
-            left: 0;
-            top: 0;
-            width: 100%; 
-            height: 100%; 
-            background-color: rgba(0, 0, 0, 0.5);
-            padding-top: 100px;
-        }
-
-        .modal-content {
-            background-color: #222;
-            color: white;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #555;
-            width: 50%;
-            text-align: center;
-            border-radius: 10px;
+            margin: 0;
         }
 
         .password-input {
             padding: 10px;
             font-size: 16px;
-            background-color: #444;
+            background-color: #222;
             color: #fff;
             border: 1px solid #555;
             border-radius: 5px;
-            width: 80%;
         }
 
         .button {
@@ -74,49 +40,38 @@
         .button:hover {
             background-color: #555;
         }
+
+        .error-message {
+            color: red;
+            display: none;
+            margin-top: 10px;
+            font-size: 16px;
+        }
     </style>
 </head>
-
 <body>
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <h1>Enter the Secret Password</h1>
-            <input type="password" id="password" class="password-input" placeholder="Enter password">
-            <button class="button" onclick="checkPassword()">Submit</button>
+    <h1>Enter the Secret Password</h1>
+    <form onsubmit="checkPassword(event)">
+        <input type="password" id="password" class="password-input" placeholder="Enter password">
+        <div id="errorMessage" class="error-message">
+            Incorrect password. Please try again.
         </div>
-    </div>
-
-    <!-- Secret content (hidden initially) -->
-    <div class="hidden-content" id="secretContent">
-        <p>🎉 You've unlocked the secret content! 🎉</p>
-        <p>This is your secret page!</p>
-        <p>Stay curious, keep exploring!</p>
-    </div>
+        <button type="submit" class="button">Submit</button>
+    </form>
 
     <script>
-        // Check the password when the Enter key is pressed
-        document.getElementById('password').addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                checkPassword();
-            }
-        });
-
-        function checkPassword() {
+        function checkPassword(event) {
+            event.preventDefault(); // Prevent default form submission behavior
             const password = document.getElementById('password').value;
-            const secretContent = document.getElementById('secretContent');
-            const modal = document.getElementById('myModal');
+            const errorMessage = document.getElementById('errorMessage');
             const correctPassword = 'Fedd'; // Set your secret password here
 
             if (password === correctPassword) {
-                secretContent.style.display = 'block'; // Show the secret content
-                modal.style.display = 'none'; // Hide the modal
-                alert("Congratulations! You've unlocked the secret.");
+                window.location.href = 'barbershop.html'; // Redirect to the barbershop page
             } else {
-                alert("Incorrect password. Try again.");
+                errorMessage.style.display = 'block'; // Show the error message
             }
         }
     </script>
 </body>
-
 </html>
